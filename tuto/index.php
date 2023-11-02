@@ -3,7 +3,7 @@ $firstname = $name = $email = $phone = $message =" ";
 $firstnameError = $nameError = $emailError = $phoneError = $messageError =" ";
 $isSucces = false;
 $email2 = "tsatsopjoelvaldes@gmail.com";
-
+//fhdhd
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 $firstname = verifyInput($_POST["firstname"]);

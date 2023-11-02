@@ -2,6 +2,7 @@
 $firstname = $name = $email = $phone = $message =" ";
 $firstnameError = $nameError = $emailError = $phoneError = $messageError =" ";
 $isSucces = false;
+$email2 = "tsatsopjoelvaldes@gmail.com";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -10,29 +11,48 @@ $name = verifyInput($_POST["name"]);
 $email = verifyInput($_POST["email"]);
 $phone = verifyInput($_POST["phone"]);
 $message = verifyInput($_POST["message"]);
+$emailText = "";
 
              if(empty($firstname)){
                   $firstnameError = "je veux connaitre ton prenom !";
                   $isSucces = false;
                 }
+                else{
+                    $emailText .= "Firstname: $firstname\n";
+                }
              if(empty($name)){
                   $nameError = "et meme ton nom !";
                   $isSucces = false;
                 }
-             if(empty($message)){
-                   $messageError = "qu'est ce que tu veux me dire";
-                   $isSucces = false;
+                else{
+                    $emailText .= "Name: $name\n";
                 }
+            
             if(! isEmail($email)){
                 $emailError = "T'essaie de me rouler ? c'est pas un email ca!";
                 $isSucces = false;
             } 
+            else{
+                $emailText .= "Email: $email\n";
+            }
             if(! isPhone($phone)){
                 $phoneError = " que des chiffres et des espaces, stp...";
                 $isSucces = false;
             } 
+            else{
+                $emailText .= "Phone: $phone\n";
+            }
+            if(empty($message)){
+                $messageError = "qu'est ce que tu veux me dire";
+                $isSucces = false;
+             }
+             else{
+                 $emailText .= "Message: $message\n";
+             }
             if($isSucces){
-                //Envoi email
+                $headers = "From: $firstname $name <$email>\r\nReply-To: $email";
+                mail($email2,"un message de votre site", $emailText, $headers );
+                $firstname = $name = $email = $phone = $message =" ";
             }  
 
 }
